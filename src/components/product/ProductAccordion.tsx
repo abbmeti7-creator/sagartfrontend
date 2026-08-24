@@ -19,7 +19,7 @@ export default function ProductAccordion({ items }: ProductAccordionProps) {
           open={index === 0}
           className="group overflow-hidden rounded-sagart border border-gold/20 bg-luxury-surface shadow-luxury"
         >
-          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-estedad text-lg font-bold text-charcoal transition-colors hover:text-gold [&::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-between p-6 font-estedad text-lg font-bold text-charcoal transition-colors hover:bg-imperial-tint hover:text-imperial-purple [&::-webkit-details-marker]:hidden">
             <span>{item.title}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

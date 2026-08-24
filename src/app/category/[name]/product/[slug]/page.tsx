@@ -76,13 +76,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
   <span className="text-gold">/</span>
   <span className="truncate text-charcoal">{product.title}</span>
 </nav>
-
 {/* ── Product Hero ── */}
 <section id="product-hero" className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
   
-  {/* Gallery با هاله بنفش-طلایی */}
+  {/* Gallery with Purple-Gold Glow */}
   <div className="relative">
+    {/* ✅ NEW: Purple-Gold Glow behind image */}
     <div className="absolute -inset-3 rounded-sagart bg-gradient-to-tr from-imperial-purple/30 via-gold/20 to-transparent blur-2xl" />
+    
     <div className="relative overflow-hidden rounded-sagart border border-gold/20 bg-luxury-surface shadow-luxury">
       <div className="aspect-square">
         <img src={mainImage} alt={product.title} className="h-full w-full object-cover" />
@@ -93,7 +94,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   {/* Info Card */}
   <div className="flex flex-col rounded-sagart border border-gold/20 bg-luxury-surface p-8 shadow-luxury">
     
-    {/* بج سلطنتی بنفش */}
+    {/* ✅ NEW: Royal Badge (Imperial Purple) */}
     <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-imperial-purple px-4 py-1.5 text-xs font-bold tracking-wide text-luxury-white">
       ✦ پیشکش شاهانه
     </span>
@@ -103,13 +104,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </h1>
     <p className="mt-2 text-charcoal/60">{faDigits(product.measure)}</p>
 
-    {/* pill موجودی */}
+    {/* ✅ NEW: Stock Pill (Imperial Tint background) */}
     <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-imperial-tint px-4 py-1.5 text-xs font-bold text-imperial-purple">
       <span className="h-2 w-2 rounded-full bg-emerald-500" />
       موجود در خزانه
     </span>
 
-    {/* بلاک قیمت */}
+    {/* Price Block */}
     <div className="my-6 border-y border-gold/20 py-6">
       <div className="flex items-end justify-between gap-4">
         <div>
@@ -141,7 +142,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   </div>
 </section>
 
-{/* ── نوار اعتماد ── */}
+{/* ✅ NEW: Trust Strip (Imperial Tint background) */}
 <section className="mb-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
   {[
     { title: "ضمانت اصالت", desc: "مهر زرین ساگارت" },
@@ -158,7 +159,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </div>
   ))}
 </section>
-
       {/* Variants Carousel */}
       {variants.length > 0 && (
         <section className="mb-12">

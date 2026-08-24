@@ -75,7 +75,7 @@ export default function UnderConstructionOverlay({
         <button
           type="button"
           onClick={onClose}
-          className="mt-8 w-full rounded-sagart bg-charcoal py-4 font-estedad text-lg tracking-wide text-luxury-white transition-colors duration-300 hover:bg-gold hover:text-charcoal"
+  className="w-full py-4 bg-imperial-purple text-luxury-white font-estedad text-lg rounded-sagart hover:bg-imperial-light transition-all duration-300 shadow-luxury tracking-wide"
         >
           بازگشت به بارگاه
         </button>

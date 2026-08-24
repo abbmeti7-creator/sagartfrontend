@@ -58,6 +58,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               src={slide.image}
               alt={slide.alt}
               fill
+              loading="eager"
               sizes="100vw"
               className="object-cover"
               priority={index === 0}
@@ -71,7 +72,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
             <button
               type="button"
               onClick={goToPrevious}
-              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-charcoal/40 p-3 text-luxury-white backdrop-blur-sm transition-colors hover:bg-gold hover:text-charcoal"
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-charcoal/40 p-3 text-luxury-white backdrop-blur-sm transition-colors hover:bg-gold hover:text-charcoal"
               aria-label="اسلاید قبلی"
             >
               <svg
@@ -93,7 +94,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
             <button
               type="button"
               onClick={goToNext}
-              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-charcoal/40 p-3 text-luxury-white backdrop-blur-sm transition-colors hover:bg-gold hover:text-charcoal"
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-charcoal/40 p-3 text-luxury-white backdrop-blur-sm transition-colors hover:bg-gold hover:text-charcoal"
               aria-label="اسلاید بعدی"
             >
               <svg

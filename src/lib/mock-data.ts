@@ -4,22 +4,22 @@ export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
     image:
-      "/Users/mahdi1/Downloads/Gemini_Generated_Image_9xjxfv9xjxfv9xjx.png",
+      "http://localhost:3000/uploads/images/1787407652978-52a6d2f1-4e12-448c-a3d2-472fd003ce51.png",
     alt: "پیشکش زعفران ساگارتیان به بارگاه هخامنشی",
-    navigatelink: "/category/saffron",
+    navigatelink: "/category/زعفران",
   },
   {
     id: "hero-2",
     image:
-      "/Users/mahdi1/Downloads/Gemini_Generated_Image_9xjxfv9xjxfv9xjx.png",
+      "http://localhost:3000/uploads/images/1787407652978-52a6d2f1-4e12-448c-a3d2-472fd003ce51.png",
     alt: "زرشک سرخ قائنات با بسته‌بندی لوکس",
-    navigatelink: "/category/barberry",
+    navigatelink: "/category/زرشک",
   },
   {
     id: "hero-3",
     image:
-      "/Users/mahdi1/Downloads/Gemini_Generated_Image_9xjxfv9xjxfv9xjx.png",
+      "http://localhost:3000/uploads/images/1787407652978-52a6d2f1-4e12-448c-a3d2-472fd003ce51.png",
     alt: "عناب اصیل ایرانی، پیشکش بارگاه پادشاهان",
-    navigatelink: "/category/jujube",
+    navigatelink: "/category/عناب",
   },
 ];

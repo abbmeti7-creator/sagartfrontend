@@ -34,6 +34,9 @@
   --color-imperial-purple: #3b1e48;
   --color-crimson: #8b1e1e;
   --color-warm-brown: #2c1e18;
+  --color-imperial-purple: #3b1e48;  /* موجود */
+  --color-imperial-light: #5c3a6e;   /* حالت hover */
+  --color-imperial-tint: #f1ebf4;    /* پس‌زمینه ملایم بخش‌ها */
 
   /* Sagart radius */
   --radius-sagart: 40px;

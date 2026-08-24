@@ -1,8 +1,8 @@
 export interface Category {
   id: string;
   name: string;
-  image: string | null;
-  coverImage: string | null;
+  image: string ;
+  coverImage: string;
   label: string | null;
   isActive: boolean;
 }
@@ -77,4 +77,64 @@ export interface ApiResponse<T> {
   statusCode: number;
   data: T;
   timestamp: string;
+}
+// ... مدل‌های قبلی
+
+export interface ProductListItem {
+  id: string;
+  title: string;
+  slug: string;
+  code: string;
+  measure: string;
+  price: number;
+  priceAfterDiscount: string;
+  discountDisplay: string;
+  images: string[];
+  rating: number;
+  isActive: boolean;
+  isFavorite: boolean;
+  isInCart: boolean;
+  category: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ProductDetail {
+  id: string;
+  title: string;
+  slug: string;
+  code: string;
+  price: number;
+  discountDisplay: string;
+  priceAfterDiscount: string;
+  measure: string;
+  images: string[];
+  description: string;
+  harvestMethod: string;
+  storageMethod: string;
+  specifications: string;
+  packagingShipping: string;
+  usageGuide: string;
+  rating: number;
+  isActive: boolean;
+  isFavorite: boolean;
+  isInCart: boolean;
+  category: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ProductVariant {
+  id: string;
+  title: string;
+  slug: string;
+  measure: string;
+  price: number;
+  priceAfterDiscount: string;
+  discountDisplay: string;
+  image: string;
+  isFavorite: boolean;
+  categoryName: string;
 }

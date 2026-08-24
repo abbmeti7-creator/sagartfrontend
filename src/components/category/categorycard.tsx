@@ -7,17 +7,20 @@ interface CategoryCardProps {
 }
 
 // نقشه تصاویر fallback برای دسته‌بندی‌هایی که image ندارند
-const fallbackImages: Record<string, string> = {
-  زعفران:
-    "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800",
-  زرشک: "https://images.unsplash.com/photo-1599909533730-3fb3d6e10e44?q=80&w=800",
-  عناب: "https://images.unsplash.com/photo-1604975701392-8a70508708f3?q=80&w=800",
-  سوغات: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800",
-};
+// const fallbackImages: Record<string, string> = {
+//   زعفران:
+//     "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800",
+//   زرشک: "https://images.unsplash.com/photo-1599909533730-3fb3d6e10e44?q=80&w=800",
+//   عناب: "https://images.unsplash.com/photo-1604975701392-8a70508708f3?q=80&w=800",
+//   سوغات: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800",
+// };
+// fallbackImages[category.name] ?? fallbackImages["سوغات"]
+// const FALLBACK_IMG = "http://localhost:3000/uploads/images/1785940132030-8d2e8bdf-d6d6-4258-b4e0-69998f1d1248.png";
+
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   const imageUrl =
-    category.image ?? fallbackImages[category.name] ?? fallbackImages["سوغات"];
+    category.image ;
 
   return (
     <Link
@@ -28,6 +31,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
         src={imageUrl}
         alt={category.name}
         fill
+        loading="eager"
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
         className="object-cover transition-transform duration-500 group-hover:scale-110"
       />

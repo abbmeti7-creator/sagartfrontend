@@ -5,12 +5,12 @@ import {
   getCategories,
 } from "@/lib/api";
 import { notFound } from "next/navigation";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice,faDigits } from "@/lib/utils";
 import PurchaseButton from "@/components/PurchaseButton";
 import ProductAccordion from "@/components/product/ProductAccordion";
 import VariantsCarousel from "@/components/product/VariantsCarousel";
 import RelatedProductsCarousel from "@/components/product/RelatedProductsCarousel";
-
+import Link from "next/link";
 type ProductPageProps = {
   params: Promise<{
     name: string;

@@ -1,8 +1,6 @@
 Here is the updated **`INSTRUCTIONS.md`** technical specification file, updated to set **Luxury White** as the primary background color for the entire application while maintaining the royal gold, purple, crimson, brown, and charcoal palette.
 
 ---
-
-```markdown
 # 📜 Sagart (ساگارت) — Technical Architecture & Implementation Guide
 
 This document is the master technical specification for the **Sagart (ساگارت)** luxury e-commerce frontend built with **Next.js (App Router)** and **Tailwind CSS**.
@@ -186,7 +184,7 @@ src/
 {
   "id": 101,
   "slug": "sagartian-saffron-tribute-achaemenid",
-  "title": "پیشکش سگارتیان: پیشینه تاریخی طلای سرخ در بارگاه داریوش بزرگ",
+  "title": "پیشکش ساگارتیان: پیشینه تاریخی طلای سرخ در بارگاه داریوش بزرگ",
   "category": "کتیبه‌ها",
   "author": "تحریریه ساگارت",
   "published_at": "1405-04-15",
@@ -194,7 +192,7 @@ src/
   "featured_image": {
     "url": "[https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000](https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000)",
     "alt": "برجسته نگاریهای تخت جمشید و پیشکش زعفران",
-    "caption": "نگاره کاخ آپادانا؛ نمایندگان ساتراپی سگارتی در حال حمل پیشکش‌های گرانبها"
+    "caption": "نگاره کاخ آپادانا؛ نمایندگان ساتراپی ساگارتی در حال حمل پیشکش‌های گرانبها"
   },
   "blocks": [
     {

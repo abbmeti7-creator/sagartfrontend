@@ -13,6 +13,7 @@ import RelatedProductsCarousel from "@/components/product/RelatedProductsCarouse
 import ProductGalleryClient from "@/components/product/ProductGalleryClient"; // ✅ New import
 import MobilePurchaseBar from "@/components/MobilePurchaseBar"; // ✅ Mobile bar
 import Link from "next/link";
+import { title } from "process";
 
 type ProductPageProps = {
   params: Promise<{
@@ -66,6 +67,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       title: "شرایط نگهداری و ضمانت اصالت",
       content: product.storageMethod || "شرایط نگهداری در حال تکمیل است.",
     },
+    {
+      title:""
+    }
   ];
 
   return (
@@ -105,33 +109,48 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </h1>
           <p className="mt-2 text-charcoal/60">{faDigits(product.measure)}</p>
 
-          <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-imperial-tint px-4 py-1.5 text-xs font-bold text-imperial-purple">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            موجود در خزانه
-          </span>
+          
 
           {/* Price Block */}
+                   {/* Price Block - Clean & Clear */}
           <div className="my-6 border-y border-gold/20 py-6">
             <div className="flex items-end justify-between gap-4">
-              <div>
-                <p className="text-sm text-charcoal/60">قیمت</p>
-                <div className="mt-1 flex items-baseline gap-2">
-                  <span className="font-estedad text-3xl font-bold text-gold">
-                    {formatPrice(product.priceAfterDiscount)}
-                  </span>
-                  <span className="text-sm text-charcoal/60">تومان</span>
-                </div>
-                {hasDiscount && (
-                  <p className="mt-1 text-sm text-charcoal/40 line-through">
-                    {formatPrice(product.price)}
-                  </p>
+              <div className="flex-1">
+                <p className="text-sm text-charcoal/60 mb-2">قیمت</p>
+                
+                {hasDiscount ? (
+                  <>
+                    {/* Discounted Price - Large & Prominent */}
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-estedad text-4xl font-bold text-gold">
+                        {formatPrice(product.priceAfterDiscount)}
+                      </span>
+                      <span className="text-base text-charcoal/60">تومان</span>
+                    </div>
+                    
+                    {/* Original Price - Crossed Out */}
+                    <p className="mt-2 text-lg text-charcoal/40 line-through">
+                      {formatPrice(product.price)} تومان
+                    </p>
+                  </>
+                ) : (
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-estedad text-4xl font-bold text-gold">
+                      {formatPrice(product.price)}
+                    </span>
+                    <span className="text-base text-charcoal/60">تومان</span>
+                  </div>
                 )}
               </div>
 
+              {/* Discount Badge - Large & Clear */}
               {hasDiscount && (
-                <span className="rounded-full bg-crimson px-4 py-2 text-sm font-bold text-white">
-                  {product.discountDisplay} حراج
-                </span>
+                <div className="flex flex-col items-center gap-1">
+                  <span className="rounded-full bg-crimson px-5 py-2 text-lg font-bold text-white shadow-lg">
+                    {product.discountDisplay}%
+                  </span>
+                  <span className="text-xs text-crimson font-bold">تخفیف</span>
+                </div>
               )}
             </div>
           </div>

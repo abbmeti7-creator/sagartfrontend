@@ -7,21 +7,21 @@ interface ProductCardProps {
   categorySlug: string;
 }
 
-const FALLBACK_IMG =
-  "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800";
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800";
 
 export default function ProductCard({ product, categorySlug }: ProductCardProps) {
   const imageUrl = product.images?.[0] || FALLBACK_IMG;
-  const hasDiscount =
-    !!product.discountDisplay && product.discountDisplay.trim() !== "۰%";
+  const hasDiscount = !!product.discountDisplay && product.discountDisplay.trim() !== "۰%";
 
   return (
     <Link
       href={`/category/${categorySlug}/product/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-sagart border border-gold/20 bg-luxury-surface shadow-luxury transition-all duration-300 hover:border-gold hover:shadow-2xl"
+      // ✅ Removed overflow-hidden from root to prevent badge clipping
+      className="group flex flex-col rounded-sagart border border-gold/20 bg-luxury-surface shadow-luxury transition-all duration-300 hover:border-gold hover:shadow-2xl"
     >
-      {/* ── Image ── */}
-      <div className="relative aspect-square overflow-hidden bg-charcoal-surface">
+      {/* ── Image Section ── */}
+      {/* ✅ Added rounded-t-sagart and overflow-hidden here only */}
+      <div className="relative aspect-square overflow-hidden rounded-t-sagart bg-charcoal-surface">
         <img
           src={imageUrl}
           alt={product.title}
@@ -30,46 +30,46 @@ export default function ProductCard({ product, categorySlug }: ProductCardProps)
         />
 
         {hasDiscount && (
-          <span className="absolute right-2 top-2 rounded-full bg-crimson px-2.5 py-1 text-[10px] font-bold text-white">
-            {product.discountDisplay} حراج
+          // ✅ Moved further inside (right-4 top-4) to clear the large border radius
+          <span className="absolute right-4 top-4 rounded-full bg-crimson px-3 py-1 text-xs font-bold text-white shadow-lg">
+            {product.discountDisplay}% تخفیف
           </span>
         )}
       </div>
 
-      {/* ── Content ── */}
-      <div className="flex flex-1 flex-col p-3 sm:p-5">
-        <h3 className="line-clamp-1 font-estedad text-sm font-bold text-charcoal transition-colors group-hover:text-gold sm:text-lg">
+      {/* ── Content Section ── */}
+      {/* ✅ Added rounded-b-sagart and background to match the card shape */}
+      <div className="flex flex-1 flex-col rounded-b-sagart bg-luxury-surface p-3 sm:p-4">
+        <h3 className="line-clamp-2 font-estedad text-sm font-bold text-charcoal transition-colors group-hover:text-gold sm:text-base">
           {product.title}
         </h3>
 
-        <p className="mt-1 text-[11px] text-charcoal/60 sm:text-sm">
+        <p className="mt-1 text-[11px] text-charcoal/60 sm:text-xs">
           {faDigits(product.measure)}
         </p>
 
-        {/* Price row — single line, bottom-aligned */}
-        <div className="mt-auto flex items-center justify-between gap-2 pt-3 sm:pt-4">
-          <div className="flex min-w-0 items-baseline gap-1">
-            <span className="whitespace-nowrap font-estedad text-xs font-bold text-gold sm:text-lg">
-              {formatPrice(product.price)}
-            </span>
-            <span className="shrink-0 text-[10px] text-charcoal/60 sm:text-xs">
-              تومان
-            </span>
-          </div>
-
-          {/* Compact circular "view" button instead of floating text */}
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-charcoal sm:h-9 sm:w-9">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-3.5 w-3.5 sm:h-4 sm:w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </span>
+        {/* Price */}
+        <div className="mt-auto pt-3">
+          {hasDiscount ? (
+            <>
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-estedad text-base font-bold text-gold sm:text-lg">
+                  {formatPrice(product.priceAfterDiscount)}
+                </span>
+                <span className="text-[10px] text-charcoal/60 sm:text-xs">تومان</span>
+              </div>
+              <p className="mt-0.5 text-[10px] text-charcoal/40 line-through sm:text-xs">
+                {formatPrice(product.price)}
+              </p>
+            </>
+          ) : (
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-estedad text-base font-bold text-gold sm:text-lg">
+                {formatPrice(product.price)}
+              </span>
+              <span className="text-[10px] text-charcoal/60 sm:text-xs">تومان</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>

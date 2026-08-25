@@ -1,20 +1,18 @@
 import type { NextConfig } from "next";
+const BACKEND_API_URL = process.env.BACKEND_API_URL;
+
 
 const nextConfig: NextConfig = {
+
   experimental: {
     scrollRestoration: true,
   },
   images: {
     // ✅ این خط به Next.js اجازه می‌دهد تصاویر localhost را در محیط توسعه لود کند
-    dangerouslyAllowLocalIP: true, 
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "localhost",
-      },
-      {
-        protocol: "http",
-        hostname: "127.0.0.1",
+        hostname: BACKEND_API_URL,
       },
       {
         protocol: "https",

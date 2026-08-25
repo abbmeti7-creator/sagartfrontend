@@ -138,3 +138,33 @@ export interface ProductVariant {
   isFavorite: boolean;
   categoryName: string;
 }
+export interface ArticleDetail {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: Array<{
+    type: "paragraph" | "heading" | "blockquote" | "video" | "image";
+    data: any;
+  }>;
+  featuredImage: string;
+  videoUrl?: string;
+  readingTime: number;
+  publishedAt: string;
+  status: string;
+  views: number;
+  products: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    price: number;
+    discountPercent: number;
+    priceAfterDiscount: string;
+    measure: string;
+    image: string;
+    isActive: boolean;
+    categoryName: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+}

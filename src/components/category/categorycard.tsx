@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Category } from "@/types";
 
@@ -6,49 +5,38 @@ interface CategoryCardProps {
   category: Category;
 }
 
-// نقشه تصاویر fallback برای دسته‌بندی‌هایی که image ندارند
-// const fallbackImages: Record<string, string> = {
-//   زعفران:
-//     "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800",
-//   زرشک: "https://images.unsplash.com/photo-1599909533730-3fb3d6e10e44?q=80&w=800",
-//   عناب: "https://images.unsplash.com/photo-1604975701392-8a70508708f3?q=80&w=800",
-//   سوغات: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800",
-// };
-// fallbackImages[category.name] ?? fallbackImages["سوغات"]
-// const FALLBACK_IMG = "http://localhost:3000/uploads/images/1785940132030-8d2e8bdf-d6d6-4258-b4e0-69998f1d1248.png";
-
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800";
 
 export default function CategoryCard({ category }: CategoryCardProps) {
-  const imageUrl =
-    category.image ;
+  const imageUrl = category.image || FALLBACK_IMG;
+  const hasLabel = category.label && category.label.trim() !== "";
 
   return (
     <Link
-      href={`/category/${category.name}`}
-      className="group relative flex aspect-square items-center justify-center overflow-hidden rounded-sagart border border-gold/20 bg-charcoal-surface shadow-luxury transition-all duration-300 hover:border-gold hover:shadow-2xl"
+      href={`/category/${category.name}`} // Adjust to category.slug if you add it to your types
+      className="group relative block aspect-square overflow-hidden rounded-sagart border border-gold/20 shadow-luxury transition-all duration-300 hover:border-gold hover:shadow-2xl"
     >
-      <Image
+      {/* Full Background Image */}
+      <img
         src={imageUrl}
         alt={category.name}
-        fill
-        loading="eager"
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
+        loading="lazy"
+        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/40 to-transparent" />
+      {/* ✅ Optional Badge (e.g., "پر فروش") */}
+      {hasLabel && (
+        <span className="absolute right-3 top-3 rounded-full bg-crimson px-3 py-1 text-[10px] font-bold tracking-wide text-white shadow-md">
+          {category.label}
+        </span>
+      )}
 
-      {/* Category Name */}
-      <div className="relative z-10 text-center">
-        <h3 className="font-estedad text-3xl font-bold tracking-widest text-luxury-white transition-colors duration-300 group-hover:text-gold">
+      {/* ✅ Minimal Name Overlay at Bottom (Always readable, elegant) */}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-3 sm:p-4">
+        <h3 className="font-estedad text-sm font-bold text-white drop-shadow-md sm:text-base">
           {category.name}
         </h3>
       </div>
-
-      {/* Gold Corner Decorations */}
-      <div className="pointer-events-none absolute right-0 top-0 h-12 w-12 rounded-tr-sagart border-r-2 border-t-2 border-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-12 w-12 rounded-bl-sagart border-b-2 border-l-2 border-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </Link>
   );
 }

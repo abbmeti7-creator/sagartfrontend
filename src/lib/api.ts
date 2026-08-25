@@ -1,6 +1,7 @@
 import "server-only";
 
 import type {
+  ArticleDetail,
   ApiResponse,
   ArticleListItem,
   Category,
@@ -52,7 +53,34 @@ export async function getCategories(): Promise<Category[]> {
   // فقط دسته‌بندی‌های فعال را برمی‌گردانیم
   return response.data.filter((category) => category.isActive);
 }
+export async function getArticleBySlug(slug: string): Promise<ArticleDetail> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
+  
+  try {
+    const response = await fetch(`${apiUrl}/articles/${encodeURIComponent(slug)}`, {
+      // ✅ Next.js caching: revalidate every 60 seconds (ISR)
+      next: { revalidate: 60 }, 
+    });
 
+    if (!response.ok) {
+      throw new Error(`Failed to fetch article: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    
+    // ✅ Unwrap the nested API response: result.data.data
+    if (result.success && result.data?.data) {
+      return result.data.data;
+    }
+    
+    // Fallback in case the API structure changes slightly
+    return result.data || result;
+    
+  } catch (error) {
+    console.error(`❌ Error fetching article with slug "${slug}":`, error);
+    throw error;
+  }
+}
 /**
  * دریافت لیست مقالات با pagination
  */

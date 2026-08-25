@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
   images: {
     // ✅ این خط به Next.js اجازه می‌دهد تصاویر localhost را در محیط توسعه لود کند
     dangerouslyAllowLocalIP: true, 

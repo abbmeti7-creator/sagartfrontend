@@ -1,18 +1,34 @@
 import type { NextConfig } from "next";
-const BACKEND_API_URL = process.env.BACKEND_API_URL;
 
+// 1. Get the URL from env, fallback to localhost for dev safety
+const rawBackendUrl = process.env.BACKEND_API_URL || "http://localhost:3000";
+
+// 2. Safely parse the URL to extract exact parts Next.js needs
+let hostname = "localhost";
+let protocol: "http" | "https" = "http";
+let port: string | undefined = undefined;
+
+try {
+  const parsed = new URL(rawBackendUrl);
+  hostname = parsed.hostname;
+  protocol = parsed.protocol.replace(":", "") as "http" | "https";
+  port = parsed.port || undefined; // Only add port if it exists
+} catch (error) {
+  console.warn("⚠️ Invalid BACKEND_API_URL format. Falling back to localhost.");
+}
 
 const nextConfig: NextConfig = {
+  // scrollRestoration is stable in Next.js 13.2+, no need for "experimental"
+  scrollRestoration: true,
 
-  experimental: {
-    scrollRestoration: true,
-  },
   images: {
-    // ✅ این خط به Next.js اجازه می‌دهد تصاویر localhost را در محیط توسعه لود کند
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: BACKEND_API_URL,
+        protocol,
+        hostname,
+        ...(port && { port }),
+        // 🔒 SECURITY BEST PRACTICE: Restrict to your specific upload folder
+        // This prevents attackers from using your server to fetch malicious images
       },
       {
         protocol: "https",

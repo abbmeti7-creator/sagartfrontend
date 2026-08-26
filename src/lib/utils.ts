@@ -5,7 +5,10 @@ export function formatPrice(price: number | string): string {
   const numPrice = typeof price === "string" ? parseFloat(price) : price;
   return new Intl.NumberFormat("fa-IR").format(numPrice);
 }
-
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "http://localhost:3001"
+).replace(/\/$/, "");
 /**
  * تبدیل عدد به فارسی
  */

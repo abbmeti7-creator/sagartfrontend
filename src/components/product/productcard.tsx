@@ -32,7 +32,7 @@ export default function ProductCard({ product, categorySlug }: ProductCardProps)
         {hasDiscount && (
           // ✅ Moved further inside (right-4 top-4) to clear the large border radius
           <span className="absolute right-4 top-4 rounded-full bg-crimson px-3 py-1 text-xs font-bold text-white shadow-lg">
-            {product.discountDisplay}% تخفیف
+            {product.discountDisplay} تخفیف
           </span>
         )}
       </div>

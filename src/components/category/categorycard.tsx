@@ -5,7 +5,7 @@ interface CategoryCardProps {
   category: Category;
 }
 
-const FALLBACK_IMG = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800";
+const FALLBACK_IMG = "/public/squareimage.png";
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   const imageUrl = category.image || FALLBACK_IMG;

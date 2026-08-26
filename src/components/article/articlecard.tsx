@@ -5,7 +5,7 @@ interface ArticleCardProps {
   article: ArticleListItem;
 }
 
-const FALLBACK_IMG = "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800";
+const FALLBACK_IMG = "/public/squareimage.png";
 
 export default function ArticleCard({ article }: ArticleCardProps) {
   const imageUrl = article.featuredImage || FALLBACK_IMG;

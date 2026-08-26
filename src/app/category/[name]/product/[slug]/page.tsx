@@ -5,7 +5,6 @@ import {
   getCategories,
 } from "@/lib/api";
 import { notFound } from "next/navigation";
-import { formatPrice, faDigits } from "@/lib/utils";
 import PurchaseButton from "@/components/PurchaseButton";
 import ProductAccordion from "@/components/product/ProductAccordion";
 import VariantsCarousel from "@/components/product/VariantsCarousel";
@@ -14,7 +13,8 @@ import ProductGalleryClient from "@/components/product/ProductGalleryClient"; //
 import MobilePurchaseBar from "@/components/MobilePurchaseBar"; // ✅ Mobile bar
 import Link from "next/link";
 import { title } from "process";
-
+import { SITE_URL, formatPrice, faDigits } from "@/lib/utils";
+import { Metadata } from "next";
 type ProductPageProps = {
   params: Promise<{
     name: string;
@@ -28,7 +28,71 @@ const categorySlugMap: Record<string, string> = {
   jujube: "عناب",
   gifts: "سوغات",
 };
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const { name: categorySlug, slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
+  const categoryName =
+    categorySlugMap[categorySlug] || decodeURIComponent(categorySlug);
 
+  try {
+    const product = await getProductBySlug(slug);
+
+    if (!product) {
+      return {
+        title: "محصول یافت نشد",
+        robots: { index: false, follow: false },
+      };
+    }
+
+    const title = `خرید ${product.title} ${product.measure ? `(${product.measure})` : ""} | قیمت و مشخصات`;
+    const description =
+      product.description?.replace(/\s+/g, " ").trim().slice(0, 160) ||
+      `خرید آنلاین ${product.title} از دسته‌بندی ${categoryName} با ضمانت اصالت قائنات و بسته‌بندی لوکس هخامنشی ساگارت.`;
+
+    const canonicalUrl = `${SITE_URL}/category/${categorySlug}/product/${encodeURIComponent(slug)}`;
+    const imageUrl =
+      product.images && product.images.length > 0
+        ? product.images[0]
+        : `${SITE_URL}/icon-512.png`;
+
+    return {
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: `${product.title} | ساگارت`,
+        description,
+        url: canonicalUrl,
+        siteName: "ساگارت",
+        locale: "fa_IR",
+        type: "website",
+        images: [
+          {
+            url: imageUrl,
+            width: 800,
+            height: 800,
+            alt: product.title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${product.title} | ساگارت`,
+        description,
+        images: [imageUrl],
+      },
+    };
+  } catch {
+    return {
+      title: "پیشکش ساگارت",
+      description: "فروشگاه لوکس زعفران، زرشک و عناب اصیل ایرانی ساگارت.",
+    };
+  }
+}
 export default async function ProductPage({ params }: ProductPageProps) {
   const { name: categorySlug, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
@@ -67,9 +131,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       title: "شرایط نگهداری و ضمانت اصالت",
       content: product.storageMethod || "شرایط نگهداری در حال تکمیل است.",
     },
-    {
-      title:""
-    }
+  
   ];
 
   return (
@@ -147,7 +209,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {hasDiscount && (
                 <div className="flex flex-col items-center gap-1">
                   <span className="rounded-full bg-crimson px-5 py-2 text-lg font-bold text-white shadow-lg">
-                    {product.discountDisplay}%
+                    {product.discountDisplay}
                   </span>
                   <span className="text-xs text-crimson font-bold">تخفیف</span>
                 </div>

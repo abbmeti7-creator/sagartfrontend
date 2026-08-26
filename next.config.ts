@@ -19,7 +19,6 @@ try {
 
 const nextConfig: NextConfig = {
   // scrollRestoration is stable in Next.js 13.2+, no need for "experimental"
-  scrollRestoration: true,
 
   images: {
     remotePatterns: [
@@ -29,6 +28,10 @@ const nextConfig: NextConfig = {
         ...(port && { port }),
         // 🔒 SECURITY BEST PRACTICE: Restrict to your specific upload folder
         // This prevents attackers from using your server to fetch malicious images
+      },
+      {
+        protocol: "https",
+        hostname: "sagartco.ir",
       },
       {
         protocol: "https",

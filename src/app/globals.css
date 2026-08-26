@@ -34,19 +34,18 @@
   --color-imperial-purple: #3b1e48;
   --color-crimson: #8b1e1e;
   --color-warm-brown: #2c1e18;
-  --color-imperial-purple: #3b1e48;  /* موجود */
-  --color-imperial-light: #5c3a6e;   /* حالت hover */
-  --color-imperial-tint: #f1ebf4;    /* پس‌زمینه ملایم بخش‌ها */
+  --color-imperial-purple: #3b1e48;  
+  --color-imperial-light: #5c3a6e;  
+  --color-imperial-tint: #f1ebf4;    
 
   /* Sagart radius */
   --radius-sagart: 40px;
 
   /* Fonts */
-  --font-vazir: var(--font-body-vazir), ui-sans-serif, system-ui, -apple-system,
+  --font-vazir: var(--font-body-vazir),
     "Segoe UI", sans-serif;
 
-  --font-estedad: var(--font-heading-estedad), var(--font-body-vazir),
-    ui-sans-serif, system-ui, sans-serif;
+ 
 
   /* Shadows */
   --shadow-luxury: 0 10px 40px -10px rgb(197 168 128 / 0.25);

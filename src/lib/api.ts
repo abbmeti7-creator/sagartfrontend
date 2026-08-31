@@ -10,26 +10,30 @@ import type {
   ProductVariant,
 } from "@/types";
 
-const BACKEND_API_URL = process.env.BACKEND_API_URL;
 
+const BACKEND_API_URL = process.env.BACKEND_API_URL;
 if (!BACKEND_API_URL) {
   throw new Error("متغیر محیطی BACKEND_API_URL تعریف نشده است.");
 }
+
 
 async function fetchFromBackend<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
+   const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
   try {
     const response = await fetch(`${BACKEND_API_URL}${endpoint}`, {
       ...options,
-      next: { revalidate: 0 },
+      signal: controller.signal,
+      next: { revalidate: 60 },
       headers: {
         "Content-Type": "application/json",
         ...(options?.headers ?? {}),
       },
     });
-
+    clearTimeout(timeoutId);
     if (!response.ok) {
       throw new Error(`خطای API: ${response.status} برای ${endpoint}`);
     }
@@ -46,6 +50,7 @@ async function fetchFromBackend<T>(
  * دریافت لیست همه دسته‌بندی‌های فعال
  */
 export async function getCategories(): Promise<Category[]> {
+
   const response = await fetchFromBackend<ApiResponse<Category[]>>(
     "/api/categories"
   );
@@ -53,29 +58,32 @@ export async function getCategories(): Promise<Category[]> {
   // فقط دسته‌بندی‌های فعال را برمی‌گردانیم
   return response.data.filter((category) => category.isActive);
 }
+// نوع پاسخ بک‌اند را تعریف کنید
+type ApiResponseWithData<T> = {
+  success: boolean;
+  statusCode: number;
+  data: {
+    message: string;
+    data: T;
+  };
+  timestamp: string;
+};
+
 export async function getArticleBySlug(slug: string): Promise<ArticleDetail> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
-  
   try {
-    const response = await fetch(`${apiUrl}/articles/${encodeURIComponent(slug)}`, {
-      // ✅ Next.js caching: revalidate every 60 seconds (ISR)
-      next: { revalidate: 60 }, 
-    });
+    const endpoint = `/api/articles/${encodeURIComponent(slug)}`;
+    console.log('📡 Requesting:', endpoint);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch article: ${response.statusText}`);
-    }
+    // استفاده از نوع صحیح برای نتیجه
+    const result = await fetchFromBackend<ApiResponseWithData<ArticleDetail>>(endpoint);
 
-    const result = await response.json();
-    
-    // ✅ Unwrap the nested API response: result.data.data
+    // بررسی ساختار داده
     if (result.success && result.data?.data) {
       return result.data.data;
     }
-    
-    // Fallback in case the API structure changes slightly
-    return result.data || result;
-    
+
+    // اگر موفق نبود، خطا پرتاب کنید
+    throw new Error(`مقاله با slug "${slug}" یافت نشد`);
   } catch (error) {
     console.error(`❌ Error fetching article with slug "${slug}":`, error);
     throw error;

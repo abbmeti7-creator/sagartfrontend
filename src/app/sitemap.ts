@@ -2,6 +2,13 @@ import type { MetadataRoute } from "next";
 import { getCategories, getArticles } from "@/lib/api";
 import { SITE_URL } from "@/lib/utils";
 
+// تابع کمکی برای تبدیل امن تاریخ
+function safeDate(dateString?: string): Date {
+  if (!dateString) return new Date();
+  const d = new Date(dateString);
+  return isNaN(d.getTime()) ? new Date() : d;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -32,14 +39,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
       url: `${SITE_URL}/category/${encodeURIComponent(cat.name)}`,
-      lastModified: new Date(),
+      lastModified: new Date(), // برای دسته‌بندی‌ها، تاریخ امروز کافی است
       changeFrequency: "weekly",
       priority: 0.85,
     }));
 
     const articleRoutes: MetadataRoute.Sitemap = (articlesRes.items || []).map((art) => ({
       url: `${SITE_URL}/articles/${encodeURIComponent(art.slug)}`,
-      lastModified: new Date(art.publishedAt || Date.now()),
+      lastModified: safeDate(art.publishedAt), // استفاده از تابع امن
       changeFrequency: "monthly",
       priority: 0.7,
     }));

@@ -18,9 +18,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   let articleData: any = null;
   try {
-    const response = await getArticleBySlug(slug);
-    // Unwrap based on your API structure: response.data.data
-    articleData = response?.data?.data || response?.data || response;
+   const response = await getArticleBySlug(slug) as any;
+// Unwrap based on your API structure: response.data.data
+articleData = response?.data?.data || response?.data || response;
   } catch (error) {
     console.error("❌ Failed to fetch article:", error);
   }

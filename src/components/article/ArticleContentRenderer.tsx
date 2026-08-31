@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 
 interface Block {
@@ -13,7 +14,7 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
       {content.map((block, index) => {
         switch (block.type) {
           case "heading":
-            const HeadingTag = `h${block.data.level || 2}` as keyof JSX.IntrinsicElements;
+            const HeadingTag = `h${block.data.level || 2}` as React.ElementType;
             return (
               <HeadingTag
                 key={index}
@@ -23,7 +24,6 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                 {block.data.text}
               </HeadingTag>
             );
-            
           case "paragraph":
             return (
               <p
@@ -34,7 +34,6 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                 {block.data.text}
               </p>
             );
-            
           case "blockquote":
             return (
               <blockquote
@@ -45,7 +44,6 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                 {block.data.text}
               </blockquote>
             );
-            
           case "image":
             return (
               <div key={index} className="my-8 overflow-hidden rounded-sagart border border-gold/20">
@@ -55,6 +53,7 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                   width={800}
                   height={400}
                   className="w-full object-cover"
+                  unoptimized
                 />
                 {block.data.caption && (
                   <p className="bg-luxury-surface p-3 text-center text-xs text-charcoal/60">
@@ -63,7 +62,6 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                 )}
               </div>
             );
-            
           case "video":
             return (
               <div key={index} className="my-8 overflow-hidden rounded-sagart border border-gold/20 bg-charcoal-surface">
@@ -80,7 +78,6 @@ export default function ArticleContentRenderer({ content }: { content: Block[] }
                 )}
               </div>
             );
-            
           default:
             return null;
         }

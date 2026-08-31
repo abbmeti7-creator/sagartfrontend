@@ -17,9 +17,9 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
   let articlesData: any = { items: [], total: 0, totalPages: 1 };
   
   try {
-    const response = await getArticles(currentPage, ITEMS_PER_PAGE);
-    // Adapt based on how your api.ts unwraps the response
-    articlesData = response?.data || response; 
+    const response = await getArticles(currentPage, ITEMS_PER_PAGE) as any;
+// Adapt based on how your api.ts unwraps the response
+articlesData = response?.data || response; 
   } catch (error) {
     console.error("❌ Failed to fetch articles:", error);
   }

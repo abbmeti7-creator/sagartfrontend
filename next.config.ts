@@ -29,13 +29,20 @@ const nextConfig: NextConfig = {
         // 🔒 SECURITY BEST PRACTICE: Restrict to your specific upload folder
         // This prevents attackers from using your server to fetch malicious images
       },
+      
       {
         protocol: "https",
-        hostname: "sagartco.ir",
+        hostname: "sagartsaffron.ir",
       },
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+          {
+        protocol: 'https',
+        hostname: 'sagartsaffron.ir',
+        port: '',
+        pathname: '/images/**',
       },
     ],
   },
